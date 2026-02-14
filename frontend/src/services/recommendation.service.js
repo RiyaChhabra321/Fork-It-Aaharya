@@ -1,6 +1,10 @@
 import api from "./api";
 
-export const getRecommendations = async (data) => {
-  const response = await api.post("/recommendations", data);
-  return response.data;
+export const getRecommendations = async ({ mood, craving }) => {
+  const res = await api.post("/recommendations", {
+    mood,
+    craving,
+  });
+
+  return res.data;
 };
