@@ -1,70 +1,99 @@
+import { Clock, Flame, MapPin, Leaf, ExternalLink } from "lucide-react";
+
 export const RecipeRecommendations = ({ recipes = [], loading }) => {
   if (loading) {
-    return <p className="text-center">Loading recommendations...</p>;
+    return (
+      <p className="text-center text-gray-500 animate-pulse">
+        Loading recommendations...
+      </p>
+    );
   }
 
   if (!Array.isArray(recipes) || recipes.length === 0) {
     return (
-      <p className="text-center text-gray-500">
+      <p className="text-center text-gray-400">
         Select your mood and craving to get recommendations
       </p>
     );
   }
 
   return (
-    <div className="space-y-4">
+    <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
       {recipes.map((recipe, index) => (
         <div
           key={recipe.recipe_id ?? recipe.title ?? index}
-          className="border rounded-xl p-4 bg-white shadow-sm"
+          className="group overflow-hidden rounded-2xl border bg-white shadow-sm hover:shadow-lg transition"
         >
-          {/* TITLE */}
-          <h4 className="font-semibold text-lg">
-            {recipe.recipe_title ?? recipe.title}
-          </h4>
-
-          {/* REGION + TIME */}
-          <p className="text-sm text-gray-600 mt-1">
-            {recipe.region} · {recipe.time} mins
-          </p>
-
-          {/* CALORIES */}
-          <p className="text-xs text-gray-500 mt-2">
-            {Math.round(recipe.calories)} kcal
-          </p>
-
           {/* IMAGE */}
           {(recipe.img_url || recipe.image) && (
-            <img
-              src={recipe.img_url ?? recipe.image}
-              alt={recipe.recipe_title ?? recipe.title}
-              className="mt-3 rounded-lg w-full max-h-48 object-cover"
-            />
+            <div className="relative h-44 overflow-hidden">
+              <img
+                src={recipe.img_url ?? recipe.image}
+                alt={recipe.recipe_title ?? recipe.title}
+                className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
+              />
+            </div>
           )}
 
-          {/* REASON */}
-          {recipe.reason && (
-            <p className="text-sm text-green-700 mt-3">🌱 {recipe.reason}</p>
-          )}
+          {/* CONTENT */}
+          <div className="p-4 space-y-3">
+            {/* TITLE */}
+            <h4 className="text-lg font-semibold line-clamp-1">
+              {recipe.recipe_title ?? recipe.title}
+            </h4>
 
-          {/* INGREDIENT */}
-          {recipe.ingredients && (
-            <p className="text-xs text-gray-500 mt-1">
-              🥗 {recipe.ingredients}
-            </p>
-          )}
+            {/* META */}
+            <div className="flex flex-wrap gap-3 text-xs text-gray-600">
+              {recipe.region && (
+                <span className="flex items-center gap-1">
+                  <MapPin className="h-3.5 w-3.5" />
+                  {recipe.region}
+                </span>
+              )}
 
-          {/* LINK */}
-          {recipe.url && (
-            <a
-              href={recipe.url}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-sm text-blue-600 underline mt-2 inline-block"
-            >
-              View full recipe →
-            </a>
-          )}
+              {recipe.time && (
+                <span className="flex items-center gap-1">
+                  <Clock className="h-3.5 w-3.5" />
+                  {recipe.time} min
+                </span>
+              )}
+
+              {recipe.calories && (
+                <span className="flex items-center gap-1">
+                  <Flame className="h-3.5 w-3.5" />
+                  {Math.round(recipe.calories)} kcal
+                </span>
+              )}
+            </div>
+
+            {/* REASON */}
+            {recipe.reason && (
+              <p className="flex items-start gap-2 text-sm text-green-700">
+                <Leaf className="mt-0.5 h-4 w-4" />
+                <span>{recipe.reason}</span>
+              </p>
+            )}
+
+            {/* INGREDIENTS */}
+            {recipe.ingredients && (
+              <p className="text-xs text-gray-500 line-clamp-2">
+                {recipe.ingredients}
+              </p>
+            )}
+
+            {/* CTA */}
+            {recipe.url && (
+              <a
+                href={recipe.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-1 text-sm font-medium text-blue-600 hover:text-blue-700"
+              >
+                View full recipe
+                <ExternalLink className="h-4 w-4" />
+              </a>
+            )}
+          </div>
         </div>
       ))}
     </div>
