@@ -57,29 +57,42 @@ router.post("/", async (req, res) => {
     console.log("Exclude Categories:", excludeCategories);
 
     const recipe = await getRecipeByFilters({
-      includeIngredients,
-      excludeIngredients,
-      excludeCategories,
-    });
+  includeIngredients,
+  excludeIngredients,
+  excludeCategories,
+});
+
 
     return res.json({
-      success: true,
-      context: {
-        phase,
-        mood,
-        craving,
-        focusNutrients: nutrients,
-        dayInPhase: profile.cycleInfo.dayInPhase,
-        dayOfCycle: profile.cycleInfo.dayOfCycle,
-      },
-      recommended_recipe: {
-        title: recipe.Recipe_title || "Healthy Recipe",
-        calories: recipe.Calories || "250",
-        time: recipe.total_time || "20",
-        ingredients: recipe.ingredients || [],
+  success: true,
+  context: {
+    phase,
+    mood,
+    craving,
+    focusNutrients: nutrients,
+    dayInPhase: profile.cycleInfo.dayInPhase,
+    dayOfCycle: profile.cycleInfo.dayOfCycle,
+  },
+  recommended_recipe: recipe
+    ? {
+        title: recipe.recipe_title,
+        calories: recipe.calories,
+        time: recipe.total_time,
+        region: recipe.region,
+        ingredients: recipe.ingredient_phrase,
+        url: recipe.url,
+        image: recipe.img_url,
+        reason: `Good for ${phase} phase — rich in ${nutrients.join(", ")}`,
+      }
+    : {
+        title: "Dark Chocolate Oats",
+        calories: "220",
+        time: "10",
+        ingredients: ["oats", "dark chocolate"],
         reason: `Good for ${phase} phase — rich in ${nutrients.join(", ")}`,
       },
-    });
+});
+
   } catch (err) {
     console.error(err);
     res.status(500).json({ message: "Recommendation failed" });

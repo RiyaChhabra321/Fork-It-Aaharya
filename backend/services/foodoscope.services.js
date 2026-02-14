@@ -15,23 +15,18 @@ export const getRecipeByFilters = async ({
         "Content-Type": "application/json",
       },
       params: {
-        includeIngredients: includeIngredients.join(","), // ✅ NEW
+        includeIngredients: includeIngredients.join(","),
         excludeIngredients: excludeIngredients.join(","),
         excludeCategories: excludeCategories.join(","),
       },
     });
 
-    return res.data.payload;
-  } catch (err) {
-    console.error(
-      "RecipeDB error:",
-      err.response?.data || err.message
-    );
+    const recipe = res.data?.payload?.data?.[0]; // ✅ correct path
 
-    return {
-      Recipe_title: "Dark Chocolate Oats",
-      Calories: "220",
-      total_time: "10",
-    };
+    return recipe || null;
+  } catch (err) {
+    console.error("RecipeDB error:", err.response?.data || err.message);
+
+    return null; // ❗ fallback route me handle karenge
   }
 };
