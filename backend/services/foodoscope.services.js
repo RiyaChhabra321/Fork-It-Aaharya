@@ -1,23 +1,21 @@
 import axios from "axios";
 
-const FOODOSCOPE_BASE =
-  "https://api.foodoscope.com/recipe2-api/recipe/recipe-day/with-ingredients-categories";
+const BASE_URL =
+  "https://cosylab.iiitd.edu.in/recipe2-api/recipe/recipe-day/with-ingredients-categories";
 
-if (!process.env.FOOD_API_KEY) {
-  console.warn("⚠️ FOOD_API_KEY missing — using mock fallback");
-}
-
-export const getRecipesByCategories = async ({
+export const getRecipeByFilters = async ({
+  includeIngredients = [],
   excludeIngredients = [],
   excludeCategories = [],
 }) => {
   try {
-    const res = await axios.get(FOODOSCOPE_BASE, {
+    const res = await axios.get(BASE_URL, {
       headers: {
-        "Content-Type": "application/json",
         Authorization: `Bearer ${process.env.FOOD_API_KEY}`,
+        "Content-Type": "application/json",
       },
       params: {
+        includeIngredients: includeIngredients.join(","), // ✅ NEW
         excludeIngredients: excludeIngredients.join(","),
         excludeCategories: excludeCategories.join(","),
       },
@@ -26,17 +24,14 @@ export const getRecipesByCategories = async ({
     return res.data.payload;
   } catch (err) {
     console.error(
-      "Foodoscope error:",
-      err.response?.status,
-      err.response?.data
+      "RecipeDB error:",
+      err.response?.data || err.message
     );
 
-    // 🔁 Mock fallback for demo
     return {
-      id: "mock-1",
-      title: "Dark Chocolate Oats",
-      calories: 220,
-      reason: "Magnesium-rich for luteal cravings",
+      Recipe_title: "Dark Chocolate Oats",
+      Calories: "220",
+      total_time: "10",
     };
   }
 };
