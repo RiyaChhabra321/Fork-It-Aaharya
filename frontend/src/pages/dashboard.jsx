@@ -1,11 +1,10 @@
+import React from 'react';
+
 export const Dashboard = () => {
   return (
     <div>
-      <h1>Dashboard</h1>
-      <p>
-        Welcome to the dashboard! Here you can find an overview of your
-        activities and statistics.
-      </p>
+      <h1>dashboard</h1>
     </div>
   );
-};
+}
+
