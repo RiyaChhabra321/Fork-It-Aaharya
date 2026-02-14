@@ -1,1 +1,153 @@
 @import "tailwindcss";
+
+/* Aaharya Design System - Lavender & Sage Palette */
+
+@layer base {
+  :root {
+    --background: 45 30% 97%;
+    --foreground: 150 15% 20%;
+
+    --card: 45 25% 99%;
+    --card-foreground: 150 15% 20%;
+
+    --popover: 45 25% 99%;
+    --popover-foreground: 150 15% 20%;
+
+    --primary: 142 25% 45%;
+    --primary-foreground: 45 30% 97%;
+
+    --secondary: 270 35% 82%;
+    --secondary-foreground: 270 30% 25%;
+
+    --muted: 142 15% 92%;
+    --muted-foreground: 142 10% 45%;
+
+    --accent: 270 40% 75%;
+    --accent-foreground: 270 30% 20%;
+
+    --destructive: 0 60% 55%;
+    --destructive-foreground: 45 30% 97%;
+
+    --border: 142 20% 88%;
+    --input: 142 20% 88%;
+    --ring: 142 25% 45%;
+
+    --radius: 1rem;
+
+    --sage-50: 142 30% 97%;
+    --sage-100: 142 28% 92%;
+    --sage-200: 142 25% 85%;
+    --sage-300: 142 22% 72%;
+    --sage-400: 142 22% 55%;
+    --sage-500: 142 25% 45%;
+    --sage-600: 142 28% 38%;
+    --sage-700: 142 30% 30%;
+
+    --lavender-50: 270 40% 97%;
+    --lavender-100: 270 38% 92%;
+    --lavender-200: 270 35% 85%;
+    --lavender-300: 270 35% 75%;
+    --lavender-400: 270 35% 65%;
+    --lavender-500: 270 32% 55%;
+
+    --cream-50: 45 35% 99%;
+    --cream-100: 45 32% 96%;
+    --cream-200: 45 28% 92%;
+
+    --gradient-hero: linear-gradient(
+      135deg,
+      hsl(var(--sage-100)) 0%,
+      hsl(var(--lavender-100)) 100%
+    );
+    --gradient-card: linear-gradient(
+      180deg,
+      hsl(var(--cream-50)) 0%,
+      hsl(var(--sage-50)) 100%
+    );
+    --gradient-accent: linear-gradient(
+      135deg,
+      hsl(var(--sage-400)) 0%,
+      hsl(var(--lavender-400)) 100%
+    );
+    --gradient-soft: linear-gradient(
+      135deg,
+      hsl(var(--lavender-50)) 0%,
+      hsl(var(--sage-50)) 100%
+    );
+
+    --shadow-soft: 0 4px 20px -4px hsl(var(--sage-500) / 0.1);
+    --shadow-card: 0 8px 30px -8px hsl(var(--sage-500) / 0.12);
+    --shadow-elevated: 0 12px 40px -12px hsl(var(--sage-500) / 0.15);
+  }
+
+  .dark {
+    --background: 150 20% 8%;
+    --foreground: 45 25% 95%;
+    --card: 150 18% 12%;
+    --card-foreground: 45 25% 95%;
+    --primary: 142 30% 55%;
+    --primary-foreground: 150 20% 8%;
+    --secondary: 270 30% 35%;
+    --secondary-foreground: 270 30% 90%;
+    --muted: 150 15% 18%;
+    --muted-foreground: 142 15% 60%;
+    --accent: 270 35% 40%;
+    --accent-foreground: 270 30% 95%;
+    --border: 150 15% 20%;
+    --input: 150 15% 20%;
+    --ring: 142 30% 55%;
+  }
+
+  * {
+    border-color: hsl(var(--border));
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background: hsl(var(--background));
+    color: hsl(var(--foreground));
+    font-family: "Source Sans 3", system-ui, sans-serif;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: "Playfair Display", Georgia, serif;
+  }
+}
+
+@layer utilities {
+  .gradient-hero {
+    background: var(--gradient-hero);
+  }
+
+  .gradient-card {
+    background: var(--gradient-card);
+  }
+
+  .gradient-accent {
+    background: var(--gradient-accent);
+  }
+
+  .gradient-soft {
+    background: var(--gradient-soft);
+  }
+
+  .shadow-soft {
+    box-shadow: var(--shadow-soft);
+  }
+
+  .shadow-card {
+    box-shadow: var(--shadow-card);
+  }
+
+  .shadow-elevated {
+    box-shadow: var(--shadow-elevated);
+  }
+}
